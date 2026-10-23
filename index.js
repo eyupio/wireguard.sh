@@ -1,117 +1,89 @@
-var Typer = {
-  text: '',
-  accessCountimer: null,
-  index: 0,
-  speed: 2,
-  file: '',
-  accessCount: 0,
-  deniedCount: 0,
-  init: function () {
-    accessCountimer = setInterval(function () {
-      Typer.updLstChr();
-    }, 500);
-    $.get(Typer.file, function (data) {
-      Typer.text = data;
-      Typer.text = Typer.text.slice(0, Typer.text.length - 1);
-    });
-  },
+(function () {
+  'use strict';
 
-  content: function () {
-    return $('#console').html();
-  },
+  var status = document.getElementById('copy-status');
+  var timers = new WeakMap();
 
-  write: function (str) {
-    $('#console').append(str);
-    return false;
-  },
+  function fallbackCopy(text) {
+    var area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.setAttribute('aria-hidden', 'true');
+    area.style.position = 'fixed';
+    area.style.top = '-1000px';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
 
-  addText: function (key) {
-    if (key.keyCode == 18) {
-      Typer.accessCount++;
-
-      if (Typer.accessCount >= 3) {
-        Typer.makeAccess();
-      }
-    } else if (key.keyCode == 20) {
-      Typer.deniedCount++;
-
-      if (Typer.deniedCount >= 3) {
-        Typer.makeDenied();
-      }
-    } else if (key.keyCode == 27) {
-      Typer.hidepop();
-    } else if (Typer.text) {
-      var cont = Typer.content();
-      if (cont.substring(cont.length - 1, cont.length) == '|')
-        $('#console').html(
-          $('#console')
-            .html()
-            .substring(0, cont.length - 1),
-        );
-      if (key.keyCode != 8) {
-        Typer.index += Typer.speed;
-      } else {
-        if (Typer.index > 0) Typer.index -= Typer.speed;
-      }
-      var text = Typer.text.substring(0, Typer.index);
-      var rtn = new RegExp('\n', 'g');
-
-      $('#console').html(text.replace(rtn, '<br/>'));
-      window.scrollBy(0, 50);
+    var copied = false;
+    try {
+      copied = document.execCommand('copy');
+    } catch (error) {
+      copied = false;
     }
 
-    if (key.preventDefault && key.keyCode != 122) {
-      key.preventDefault();
-    }
+    area.remove();
+    return copied;
+  }
 
-    if (key.keyCode != 122) {
-      // otherway prevent keys default behavior
-      key.returnValue = false;
-    }
-  },
-
-  updLstChr: function () {
-    var cont = this.content();
-
-    if (cont.substring(cont.length - 1, cont.length) == '|')
-      $('#console').html(
-        $('#console')
-          .html()
-          .substring(0, cont.length - 1),
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(
+        function () {
+          return true;
+        },
+        function () {
+          return fallbackCopy(text);
+        }
       );
-    else this.write('|'); // else write it
-  },
-};
+    }
 
-function replaceUrls(text) {
-  var http = text.indexOf('http://');
-  var space = text.indexOf('.me ', http);
-
-  if (space != -1) {
-    var url = text.slice(http, space - 1);
-    return text.replace(url, '<a href="' + url + '">' + url + '</a>');
-  } else {
-    return text;
+    return Promise.resolve(fallbackCopy(text));
   }
-}
 
-Typer.speed = 3;
-Typer.file = 'wireguard.sh.txt';
-Typer.init();
-
-var timer = setInterval('t();', 30);
-function t() {
-  Typer.addText({ keyCode: 123748 });
-
-  if (Typer.index > Typer.text.length) {
-    clearInterval(timer);
+  function announce(message) {
+    if (!status) return;
+    status.textContent = '';
+    window.setTimeout(function () {
+      status.textContent = message;
+    }, 50);
   }
-}
 
-var clipboardDemos=new ClipboardJS('[data-clipboard-copy]');clipboardDemos.on('success',function(e){e.clearSelection();showTooltip(e.trigger,'Copied!');});clipboardDemos.on('error',function(e){console.error('Action:',e.action);console.error('Trigger:',e.trigger);showTooltip(e.trigger,fallbackMessage(e.action));});
-function clearTooltip(elem){elem.setAttribute('data-tooltip','Click to Copy');}
-function showTooltip(elem,msg){elem.setAttribute('data-tooltip',msg);}
-function fallbackMessage(action){var actionMsg='';var actionKey=(action==='cut'?'X':'C');if(/iPhone|iPad/i.test(navigator.userAgent)){actionMsg='No support :(';}
-else if(/Mac/i.test(navigator.userAgent)){actionMsg='Press ⌘-'+actionKey+' to '+action;}
-else{actionMsg='Press Ctrl-'+actionKey+' to '+action;}
-return actionMsg;}
+  function resetButton(button, label, text) {
+    button.removeAttribute('data-state');
+    label.textContent = text;
+    announce('');
+  }
+
+  document.querySelectorAll('[data-copy]').forEach(function (button) {
+    var target = document.getElementById(button.getAttribute('data-copy'));
+    var label = button.querySelector('.copy__label');
+    if (!target || !label) return;
+
+    var defaultLabel = label.textContent;
+
+    button.addEventListener('click', function () {
+      var text = target.textContent.trim();
+
+      copyText(text).then(function (copied) {
+        if (copied) {
+          button.setAttribute('data-state', 'success');
+          label.textContent = 'Copied';
+          announce('Command copied to clipboard.');
+        } else {
+          button.setAttribute('data-state', 'error');
+          label.textContent = 'Copy failed';
+          announce('Copy failed. Select the command and copy it manually.');
+        }
+
+        window.clearTimeout(timers.get(button));
+        timers.set(
+          button,
+          window.setTimeout(function () {
+            resetButton(button, label, defaultLabel);
+          }, 2200)
+        );
+      });
+    });
+  });
+})();
