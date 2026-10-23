@@ -1,33 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Install a WireGuard VPN server with one command | wireguard.sh</title>
+    <meta
+      name="description"
+      content="Automated WireGuard VPN server setup for Ubuntu, Debian, CentOS and Fedora. Copy one command, run it as root, and get a client config with a QR code.">
+    <link rel="canonical" href="https://wireguard.sh/">
+    <meta name="theme-color" content="#000000">
 
-<html> 
-  <head> 
-    <!-- Primary Meta Tags -->
-    <title>Wireguard VPN Automated Script Installation</title>
-    <meta name="title" content="Wireguard VPN Automated Script Installation">
-    <meta name="description" content="WireGuard is a communication protocol and free and open-source software that implements encrypted virtual private networks, and was designed with the goals of ease of use, high speed performance, and low attack surface.">
-
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="wireguard.sh">
     <meta property="og:url" content="https://wireguard.sh/">
-    <meta property="og:title" content="Wireguard VPN Automated Script Installation">
-    <meta property="og:description" content="WireGuard is a communication protocol and free and open-source software that implements encrypted virtual private networks, and was designed with the goals of ease of use, high speed performance, and low attack surface.">
-    <meta property="og:image" content="">
+    <meta property="og:title" content="Install a WireGuard VPN server with one command">
+    <meta
+      property="og:description"
+      content="Automated WireGuard VPN server setup for Ubuntu, Debian, CentOS and Fedora. Copy one command and get a client config with a QR code.">
+    <meta property="og:image" content="https://wireguard.sh/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="wireguard.sh terminal with the one-line WireGuard install command">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://wireguard.sh/">
-    <meta property="twitter:title" content="Wireguard VPN Automated Script Installation">
-    <meta property="twitter:description" content="WireGuard is a communication protocol and free and open-source software that implements encrypted virtual private networks, and was designed with the goals of ease of use, high speed performance, and low attack surface.">
-    <meta property="twitter:image" content="">
-    <link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
-    <script src="https://kit.fontawesome.com/88479e0270.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-  </head> 
-  <body> 
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script> 
-    <script type="text/javascript" src="index.js"></script> 
-    <div id="console"></div> 
-  </body> 
-</html> 
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://wireguard.sh/">
+    <meta name="twitter:title" content="Install a WireGuard VPN server with one command">
+    <meta
+      name="twitter:description"
+      content="Automated WireGuard VPN server setup for Ubuntu, Debian, CentOS and Fedora. Copy one command and get a client config with a QR code.">
+    <meta name="twitter:image" content="https://wireguard.sh/og.png">
+    <meta name="twitter:image:alt" content="wireguard.sh terminal with the one-line WireGuard install command">
+
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="index.css">
+    <noscript><style>.copy { display: none; }</style></noscript>
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="wireguard.sh home">wireguard<span class="brand__dot">.sh</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="https://www.wireguard.com/">Docs</a>
+        <a href="https://www.wireguard.com/install/">Clients</a>
+        <a href="https://github.com/jnnngs/wireguard.sh">Source</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Open-source installer · v1.1</p>
+        <h1 id="hero-title">Install a WireGuard VPN server with <span class="accent">one command</span>.</h1>
+        <p class="lede">
+          A small, auditable bash script that configures WireGuard, routing and a first client for you.
+          No account, no dashboard, no agents.
+        </p>
+        <ul class="meta">
+          <li>Open source</li>
+          <li>Ubuntu · Debian · CentOS · Fedora</li>
+          <li>~1 minute</li>
+        </ul>
+      </section>
+
+      <div class="layout">
+        <section class="terminal" aria-labelledby="terminal-title">
+          <div class="terminal__bar">
+            <span class="terminal__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="terminal__title" id="terminal-title">wireguard.sh — bash</span>
+          </div>
+
+          <div class="terminal__body">
+            <pre class="banner" aria-hidden="true">░▒█░░▒█░░▀░░█▀▀▄░█▀▀░█▀▀▀░█░▒█░█▀▀▄░█▀▀▄░█▀▄░░░░█▀▀░█░░░
+░▒█▒█▒█░░█▀░█▄▄▀░█▀▀░█░▀▄░█░▒█░█▄▄█░█▄▄▀░█░█░▄▄░▀▀▄░█▀▀█
+░▒▀▄▀▄▀░▀▀▀░▀░▀▀░▀▀▀░▀▀▀▀░░▀▀▀░▀░░▀░▀░▀▀░▀▀░░▀▀░▀▀▀░▀░░▀</pre>
+
+            <p class="term-line">
+              <span class="term-user">wireguard.sh</span><span class="term-punct">:</span><span class="term-path">~</span><span class="term-prompt">$</span>
+              <span>cat install.txt</span>
+            </p>
+
+            <p class="term-out accent">Run one of the following commands to automatically install WireGuard.</p>
+            <p class="term-out muted">Supported on Ubuntu, Debian, CentOS &amp; Fedora.</p>
+
+            <div class="command">
+              <code class="command__code" id="cmd-wget">bash &lt;(wget -q -O - https://wireguard.sh/wireguard.sh)</code>
+              <button class="copy" type="button" data-copy="cmd-wget">
+                <span class="copy__label">Copy</span>
+              </button>
+            </div>
+
+            <p class="term-or"><span>or</span></p>
+
+            <div class="command">
+              <code class="command__code" id="cmd-curl">bash &lt;(curl -s https://wireguard.sh/wireguard.sh)</code>
+              <button class="copy" type="button" data-copy="cmd-curl">
+                <span class="copy__label">Copy</span>
+              </button>
+            </div>
+
+            <noscript>
+              <p class="term-note">JavaScript is off. Select a command above and copy it manually.</p>
+            </noscript>
+
+            <p class="term-line term-line--last">
+              <span class="term-user">wireguard.sh</span><span class="term-punct">:</span><span class="term-path">~</span><span class="term-prompt">$</span>
+              <span class="cursor" aria-hidden="true"></span>
+              <span class="visually-hidden">Ready for your next command.</span>
+            </p>
+          </div>
+        </section>
+
+        <aside class="sidebar" aria-label="What you need to know">
+          <section class="panel">
+            <h2>What the script does</h2>
+            <ul>
+              <li>Installs WireGuard and writes <code>/etc/wireguard/wg0.conf</code>.</li>
+              <li>Enables IP forwarding and configures firewall/NAT for the VPN subnet.</li>
+              <li>Creates your first client config and prints a QR code.</li>
+              <li>Re-run the same command any time to add or remove clients, or uninstall WireGuard.</li>
+            </ul>
+          </section>
+
+          <section class="panel">
+            <h2>Before you run it</h2>
+            <ul>
+              <li>Use a fresh server you control; the script needs root.</li>
+              <li>Ubuntu 18.04+, Debian 10+, CentOS 7+ or Fedora 31+.</li>
+              <li>Opens one UDP port, <code>51820</code> by default.</li>
+              <li><a href="https://github.com/jnnngs/wireguard.sh/blob/main/wireguard.sh">Read the installer</a> before piping it to bash.</li>
+            </ul>
+          </section>
+
+          <section class="panel panel--accent">
+            <h2>After the server is up</h2>
+            <p>Install the WireGuard client on your phone or laptop, then import the generated config or scan the QR code.</p>
+            <a class="button-link" href="https://www.wireguard.com/install/">Download a client</a>
+          </section>
+        </aside>
+      </div>
+
+      <section class="source-note" aria-labelledby="source-title">
+        <div>
+          <h2 id="source-title">Prefer to read it first?</h2>
+          <p>The installer is a plain bash script. Review the source, then run the command when you are ready.</p>
+        </div>
+        <div class="source-note__actions">
+          <a class="button-link button-link--ghost" href="https://github.com/jnnngs/wireguard.sh">View source on GitHub</a>
+          <a class="text-link" href="https://github.com/jnnngs/wireguard.sh/blob/main/wireguard.sh">Open wireguard.sh</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>wireguard.sh · Automating WireGuard since 2019.</p>
+      <nav aria-label="Footer">
+        <a href="https://www.wireguard.com/">Documentation</a>
+        <a href="https://www.wireguard.com/install/">Client downloads</a>
+        <a href="https://github.com/jnnngs/wireguard.sh">GitHub</a>
+      </nav>
+    </footer>
+
+    <p class="visually-hidden" id="copy-status" role="status" aria-live="polite"></p>
+  </body>
+</html>
