@@ -1,3 +1,5 @@
+> **Historical audit.** This review describes the pre-rebuild page, before the static rewrite and the guided TUI. It is kept for reference; the issues below have been addressed in the current site and installer.
+
 # UI Audit — wireguard.sh
 
 **Audited:** static landing page (`index.html` + `index.css` + `index.js` + `wireguard.sh.txt`).
