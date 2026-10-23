@@ -106,6 +106,9 @@ def main() -> int:
     parser = DocumentParser()
     parser.feed(html)
 
+    def has_link(url: str) -> bool:
+        return any(link == url for link in parser.local_refs)
+
     check(lower_html.lstrip().startswith("<!doctype html>"), "index.html must start with <!DOCTYPE html>")
     check('<html lang="en">' in html, "html element must declare lang=\"en\"")
     check('<meta charset="utf-8">' in lower_html, "missing UTF-8 charset meta")
@@ -128,7 +131,7 @@ def main() -> int:
     check(parser.tui_cards >= 3, "TUI preview needs at least three screens")
     check("A terminal UI that shows its working." in html, "missing TUI section headline")
     check("Developed by EyUp.io" in html, "missing EyUp.io credit in the page")
-    check("https://eyup.io" in html, "missing EyUp.io link")
+    check(has_link("https://eyup.io"), "missing EyUp.io link")
     check(
         re.search(
             r'<a href="https://eyup\.io" target="_blank" rel="noopener noreferrer">EyUp\.io</a>',
@@ -137,15 +140,15 @@ def main() -> int:
         is not None,
         "footer must link to EyUp.io like the Zoomies footer",
     )
-    check("https://github.com/Nyr/wireguard-install" in html, "missing Nyr/wireguard-install credit")
-    check("https://www.wireguard.com/" in html, "missing WireGuard credit link")
+    check(has_link("https://github.com/Nyr/wireguard-install"), "missing Nyr/wireguard-install credit")
+    check(has_link("https://www.wireguard.com/"), "missing WireGuard credit link")
     check("Jason A. Donenfeld" in html, "missing WireGuard author credit")
     check("not affiliated with" in html, "missing independence note")
-    check("https://github.com/eyupio/wireguard.sh" in html, "missing current GitHub source link")
-    check("https://github.com/eyupio/wireguard.sh/blob/main/wireguard.sh" in html, "installer links must use the rendered GitHub view")
+    check(has_link("https://github.com/eyupio/wireguard.sh"), "missing current GitHub source link")
+    check(has_link("https://github.com/eyupio/wireguard.sh/blob/main/wireguard.sh"), "installer links must use the rendered GitHub view")
     check("jnnngs" not in html, "landing page still links to the old repository")
     check('href="wireguard.sh"' not in html, "do not link directly to the .sh download")
-    check("https://www.wireguard.com/install/" in html, "missing client download link")
+    check(has_link("https://www.wireguard.com/install/"), "missing client download link")
     check("51820" in html, "missing default port trust information")
     check("Ubuntu 18.04+" in html, "missing supported OS information")
     check(parser.release_versions >= 1, "missing data-release-version fallback")
@@ -200,7 +203,7 @@ def main() -> int:
     check(installer_version is not None, "installer is missing APP_VERSION")
     expected_version = installer_version.group(1) if installer_version else ""
     check(
-        f"https://github.com/eyupio/wireguard.sh/releases/tag/v{expected_version}" in html,
+        has_link(f"https://github.com/eyupio/wireguard.sh/releases/tag/v{expected_version}"),
         "missing release tag link",
     )
 
@@ -217,7 +220,7 @@ def main() -> int:
         "static release version does not match the installer version",
     )
     check(
-        f"releases/tag/v{expected_version}" in html,
+        has_link(f"https://github.com/eyupio/wireguard.sh/releases/tag/v{expected_version}"),
         "release links do not match the installer version",
     )
 
