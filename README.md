@@ -1,5 +1,7 @@
 # wireguard.sh
 
+[![CI has the Zoomies](https://zoomies.sh/badge.svg)](https://zoomies.sh)
+
 A guided, open-source WireGuard installer for Ubuntu, Debian, CentOS, and Fedora.
 
 [![Validate site](https://github.com/eyupio/wireguard.sh/actions/workflows/validate.yml/badge.svg)](https://github.com/eyupio/wireguard.sh/actions/workflows/validate.yml)
