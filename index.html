@@ -6,17 +6,17 @@
     <title>Install a WireGuard VPN server with one command | wireguard.sh</title>
     <meta
       name="description"
-      content="A guided, open-source WireGuard installer for Ubuntu, Debian, CentOS and Fedora. Review every step in a calm terminal UI, then get a client config and QR code.">
+      content="A guided, open-source WireGuard installer for Ubuntu, Debian, CentOS and Fedora. Review every step in a terminal UI, then get a client config and QR code.">
     <link rel="canonical" href="https://wireguard.sh/">
-    <meta name="theme-color" content="#05070a">
+    <meta name="theme-color" content="#0a0c11">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="wireguard.sh">
     <meta property="og:url" content="https://wireguard.sh/">
-    <meta property="og:title" content="WireGuard, installed with a calm guided TUI">
+    <meta property="og:title" content="Install a WireGuard VPN server with one command">
     <meta
       property="og:description"
-      content="A small, auditable bash installer with a professional terminal UI. Review the settings, install WireGuard, and get a client config with a QR code.">
+      content="A small, auditable bash installer with a guided terminal UI. Review the settings, install WireGuard, and get a client config with a QR code.">
     <meta property="og:image" content="https://wireguard.sh/og.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -24,15 +24,17 @@
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://wireguard.sh/">
-    <meta name="twitter:title" content="WireGuard, installed with a calm guided TUI">
+    <meta name="twitter:title" content="Install a WireGuard VPN server with one command">
     <meta
       name="twitter:description"
-      content="A guided, open-source WireGuard installer. Review every step in a clean terminal UI, then get a client config and QR code.">
+      content="A guided, open-source WireGuard installer. Review every step in a terminal UI, then get a client config and QR code.">
     <meta name="twitter:image" content="https://wireguard.sh/og.png">
     <meta name="twitter:image:alt" content="wireguard.sh guided terminal installer by EyUp.io">
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preload" href="fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="index.css">
     <noscript><style>.copy { display: none; }</style></noscript>
     <script src="index.js" defer></script>
@@ -66,7 +68,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a class="brand" href="/" aria-label="wireguard.sh home">wireguard<span class="brand__dot">.sh</span></a>
+      <a class="brand" href="/" aria-label="wireguard.sh home">wireguard<span class="brand__tld">.sh</span></a>
       <nav class="site-nav" aria-label="Primary">
         <a href="#tui">TUI</a>
         <a href="#credits">Credits</a>
@@ -77,64 +79,64 @@
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow">
-          <span class="eyebrow__dot" aria-hidden="true"></span>
-          Open-source installer ·
-          <a
-            class="release-link"
-            data-release-link
-            href="https://github.com/eyupio/wireguard.sh/releases/tag/v1.2"
-            aria-label="View the latest wireguard.sh release on GitHub">
-            latest release <span data-release-version>v1.2</span>
-          </a>
-        </p>
-        <h1 id="hero-title">Install a WireGuard VPN server with <span class="accent">one command</span>.</h1>
-        <p class="lede">
-          A small, auditable bash script with a professional terminal UI. It detects the server, asks a few
-          clear questions, shows you the plan, then installs WireGuard and your first client.
-        </p>
-        <ul class="meta">
-          <li>Guided TUI</li>
-          <li>Ubuntu · Debian · CentOS · Fedora</li>
-          <li>Review before install</li>
-          <li>~1 minute</li>
-        </ul>
-      </section>
-
-      <div class="layout">
+        <div class="hero__copy">
+          <p class="kicker">
+            <span class="peer" aria-hidden="true"></span>
+            Open source installer · latest release
+            <a
+              class="release-link"
+              data-release-link
+              href="https://github.com/eyupio/wireguard.sh/releases/tag/v1.2"
+              aria-label="View the latest wireguard.sh release on GitHub"><span data-release-version>v1.2</span></a>
+          </p>
+          <h1 id="hero-title">Install a WireGuard VPN server with one command</h1>
+          <p class="lede">
+            A small bash script that detects the OS and network, asks a few questions, shows the plan, then
+            installs WireGuard and your first client.
+          </p>
+          <ul class="meta">
+            <li>Guided TUI</li>
+            <li>Ubuntu · Debian · CentOS · Fedora</li>
+          </ul>
+        </div>
         <section class="terminal" aria-labelledby="terminal-title">
           <div class="terminal__bar">
-            <span class="terminal__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="terminal__title" id="terminal-title">wireguard.sh — guided installer</span>
+            <span class="terminal__label" id="terminal-title">root@vpn — wireguard.sh</span>
+            <span class="terminal__meta">udp 51820</span>
           </div>
 
           <div class="terminal__body">
-            <pre class="banner" aria-hidden="true">  <span class="tui-border">┌────────────────────────────────────────────────────┐</span>
-  <span class="tui-border">│</span>   <span class="tui-brand">wireguard.sh</span>                              <span class="tui-version">v1.2</span>   <span class="tui-border">│</span>
-  <span class="tui-border">│</span>   Guided WireGuard installer          by EyUp.io   <span class="tui-border">│</span>
-  <span class="tui-border">│</span>   A calmer way to install WireGuard                <span class="tui-border">│</span>
-  <span class="tui-border">└────────────────────────────────────────────────────┘</span></pre>
+            <div class="banner" aria-hidden="true">
+              <span class="banner__brand">wireguard.sh</span>
+              <span class="banner__version">v1.2</span>
+              <span class="banner__tagline">Guided WireGuard installer</span>
+              <span class="banner__by">by EyUp.io</span>
+            </div>
 
             <p class="term-line">
-              <span class="term-user">wireguard.sh</span><span class="term-punct">:</span><span class="term-path">~</span><span class="term-prompt">$</span>
+              <span class="term-path">wireguard.sh:~$</span>
               <span>cat install.txt</span>
             </p>
 
-            <p class="term-out accent">Run one of the following commands to start the guided installer.</p>
-            <p class="term-out muted">The TUI opens on your server. Nothing is changed until you confirm.</p>
+            <p class="term-out">Run one of the following commands to start the guided installer.</p>
+            <p class="term-out term-out--muted">The TUI opens on your server. Nothing changes until you confirm.</p>
 
             <div class="command">
               <code class="command__code" id="cmd-wget">bash &lt;(wget -q -O - https://wireguard.sh/wireguard.sh)</code>
-              <button class="copy" type="button" data-copy="cmd-wget">
+              <button class="copy" type="button" data-copy="cmd-wget" aria-label="Copy the wget install command">
+                <svg class="copy__icon copy__icon--copy" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                <svg class="copy__icon copy__icon--check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"></path></svg>
                 <span class="copy__label">Copy</span>
               </button>
             </div>
 
-            <p class="term-or"><span>or</span></p>
+            <p class="term-or">or</p>
 
             <div class="command">
               <code class="command__code" id="cmd-curl">bash &lt;(curl -s https://wireguard.sh/wireguard.sh)</code>
-              <button class="copy" type="button" data-copy="cmd-curl">
+              <button class="copy" type="button" data-copy="cmd-curl" aria-label="Copy the curl install command">
+                <svg class="copy__icon copy__icon--copy" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                <svg class="copy__icon copy__icon--check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"></path></svg>
                 <span class="copy__label">Copy</span>
               </button>
             </div>
@@ -144,56 +146,53 @@
             </noscript>
 
             <p class="term-line term-line--last">
-              <span class="term-user">wireguard.sh</span><span class="term-punct">:</span><span class="term-path">~</span><span class="term-prompt">$</span>
+              <span class="term-path">wireguard.sh:~$</span>
               <span class="cursor" aria-hidden="true"></span>
-              <span class="visually-hidden">Ready for your next command.</span>
             </p>
           </div>
         </section>
+      </section>
 
-        <aside class="sidebar" aria-label="What you need to know">
-          <section class="panel">
-            <h2>What the TUI does</h2>
-            <ul>
-              <li>Detects your OS, IPv4 and IPv6 addresses, then explains what it found.</li>
-              <li>Asks for the port, first client name, and DNS resolver with sensible defaults.</li>
-              <li>Shows a review screen before installing anything.</li>
-              <li>Installs WireGuard, writes <code>/etc/wireguard/wg0.conf</code>, and configures forwarding, firewall and NAT.</li>
-              <li>Reports each install step and keeps the full log at <code>/var/log/wireguardSH.log</code>.</li>
-            </ul>
-          </section>
+      <section class="panels" aria-label="What the installer does">
+        <article class="panel">
+          <h2>What the TUI does</h2>
+          <ul>
+            <li>Detects your OS, IPv4 and IPv6 addresses, then explains what it found.</li>
+            <li>Asks for the port, first client name and DNS resolver with sensible defaults.</li>
+            <li>Shows a review screen before installing anything.</li>
+            <li>Installs WireGuard, writes <code>/etc/wireguard/wg0.conf</code>, and configures forwarding, firewall and NAT.</li>
+            <li>Reports each install step and keeps the full log at <code>/var/log/wireguardSH.log</code>.</li>
+          </ul>
+        </article>
 
-          <section class="panel">
-            <h2>Before you run it</h2>
-            <ul>
-              <li>Use a fresh server you control; the installer needs root.</li>
-              <li>Ubuntu 18.04+, Debian 10+, CentOS 7+ or Fedora 31+.</li>
-              <li>Opens one UDP port, <code>51820</code> by default.</li>
-              <li><a href="https://github.com/eyupio/wireguard.sh/blob/main/wireguard.sh">Read the installer</a> before piping it to bash.</li>
-            </ul>
-          </section>
+        <article class="panel">
+          <h2>Before you run it</h2>
+          <ul>
+            <li>Use a fresh server you control; the installer needs root.</li>
+            <li>Ubuntu 18.04+, Debian 10+, CentOS 7+ or Fedora 31+.</li>
+            <li>Opens one UDP port, <code>51820</code> by default.</li>
+            <li><a href="https://github.com/eyupio/wireguard.sh/blob/main/wireguard.sh">Read the installer</a> before piping it to bash.</li>
+          </ul>
+        </article>
 
-          <section class="panel panel--accent">
-            <h2>After the server is up</h2>
-            <p>Install the WireGuard client on your phone or laptop, then import the generated config or scan the QR code.</p>
-            <a class="button-link" href="https://www.wireguard.com/install/">Download a client</a>
-          </section>
-        </aside>
-      </div>
+        <article class="panel panel--next">
+          <h2>After the server is up</h2>
+          <p>Install the WireGuard client on your phone or laptop, then import the generated config or scan the QR code.</p>
+          <a class="button-link button-link--ghost" href="https://www.wireguard.com/install/">Download a client</a>
+        </article>
+      </section>
 
       <section class="tui" id="tui" aria-labelledby="tui-title">
         <div class="tui__head">
-          <div>
-            <p class="eyebrow">
-              <span class="eyebrow__dot" aria-hidden="true"></span>
+          <div class="tui__intro">
+            <p class="kicker">
+              <span class="peer" aria-hidden="true"></span>
               Guided TUI ·
               <a
                 class="release-link"
                 data-release-link
                 href="https://github.com/eyupio/wireguard.sh/releases/tag/v1.2"
-                aria-label="View the latest wireguard.sh release on GitHub">
-                <span data-release-version>v1.2</span>
-              </a>
+                aria-label="View the latest wireguard.sh release on GitHub"><span data-release-version>v1.2</span></a>
             </p>
             <h2 id="tui-title">A terminal UI that shows its working.</h2>
             <p>
@@ -212,47 +211,66 @@
         <div class="tui-grid">
           <figure class="tui-card">
             <div class="terminal__bar">
-              <span class="terminal__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="terminal__title">wireguard.sh — welcome</span>
+              <span class="terminal__label">wireguard.sh — welcome</span>
+              <span class="terminal__meta">--preview</span>
             </div>
-            <div class="tui-screen-wrap" tabindex="0" role="group" aria-label="Preview of the wireguard.sh welcome screen">
-              <pre class="tui-screen" aria-hidden="true"><span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   <span class="tui-brand">wireguard.sh</span>                                            <span class="tui-version">v1.2</span>   │
-  │   Guided WireGuard installer                        <span class="tui-dim">by EyUp.io</span>   │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span>
+            <div class="tui-screen-wrap" role="group" aria-label="Preview of the wireguard.sh welcome screen">
+              <div class="tui-screen" aria-hidden="true">
+                <div class="tui-screen__head">
+                  <span class="tui-screen__brand">wireguard.sh</span>
+                  <span class="tui-screen__version">v1.2</span>
+                  <span class="tui-screen__tagline">Guided WireGuard installer</span>
+                  <span class="tui-screen__by">by EyUp.io</span>
+                </div>
 
-<span class="tui-heading">  Welcome</span>
-<span class="tui-dim">  A guided install, with every step in plain sight.</span>
+                <p class="tui-screen__title">Welcome</p>
+                <p class="tui-screen__sub">A guided install, with every step in plain sight</p>
 
-<span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   System           Ubuntu 24.04 · x86_64 · KVM                   │
-  │   Host             vpn.example.com                               │
-  │   Primary IPv4     203.0.113.10                                  │
-  │   WireGuard        not installed                                 │
-  │   VPN subnet       10.7.0.0/24                                   │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span>
+                <dl class="tui-rows">
+                  <div class="tui-row"><dt>System</dt><dd>Ubuntu 24.04 · x86_64 · KVM</dd></div>
+                  <div class="tui-row"><dt>Host</dt><dd>vpn.example.com</dd></div>
+                  <div class="tui-row"><dt>Primary IPv4</dt><dd>203.0.113.10</dd></div>
+                  <div class="tui-row"><dt>WireGuard</dt><dd>not installed</dd></div>
+                  <div class="tui-row"><dt>VPN subnet</dt><dd>10.7.0.0/24</dd></div>
+                </dl>
 
-  This wizard installs WireGuard, configures forwarding and a
-  firewall, and creates your first client. Nothing changes
-  until you review the choices and confirm.
+                <p class="tui-copy">
+                  This wizard installs WireGuard, configures forwarding and a firewall, and creates your first
+                  client. Nothing changes until you review the choices and confirm.
+                </p>
 
-<span class="tui-dim">  • With thanks to Nyr for wireguard-install, and to Jason A.</span>
-    Donenfeld and the WireGuard project for WireGuard itself.
+                <p class="tui-note">
+                  With thanks to Nyr for wireguard-install, and to Jason A. Donenfeld and the WireGuard project
+                  for WireGuard itself.
+                </p>
 
-<span class="tui-dim">  v1.2 · Developed by EyUp.io</span>
-<span class="tui-dim">  With thanks to Nyr and the WireGuard project</span>
-<span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   What would you like to do?                                     │
-<span class="tui-border">  ├──────────────────────────────────────────────────────────────────┤</span>
-<span class="tui-selected">  │   ❯ 1  Start guided setup                                        │</span>
-  │         Review the settings before anything changes              │
-  │     2  About &amp; credits                                           │
-  │         Meet the people whose work this builds on                │
-  │     3  Exit                                                      │
-  │         Leave the server untouched                               │
-<span class="tui-border">  ├──────────────────────────────────────────────────────────────────┤</span>
-  │   Enter a number · q to quit                                     │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span></pre>
+                <div class="tui-menu">
+                  <p class="tui-menu__ask">What would you like to do?</p>
+                  <div class="tui-menu__row is-active">
+                    <span class="tui-menu__key">1</span>
+                    <span class="tui-menu__text">
+                      <span class="tui-menu__label">Start guided setup</span>
+                      <span class="tui-menu__hint">Review the settings before anything changes</span>
+                    </span>
+                  </div>
+                  <div class="tui-menu__row">
+                    <span class="tui-menu__key">2</span>
+                    <span class="tui-menu__text">
+                      <span class="tui-menu__label">About &amp; credits</span>
+                      <span class="tui-menu__hint">Meet the people whose work this builds on</span>
+                    </span>
+                  </div>
+                  <div class="tui-menu__row">
+                    <span class="tui-menu__key">3</span>
+                    <span class="tui-menu__text">
+                      <span class="tui-menu__label">Exit</span>
+                      <span class="tui-menu__hint">Leave the server untouched</span>
+                    </span>
+                  </div>
+                  <p class="tui-menu__foot">Enter a number · q to quit</p>
+                </div>
+                <p class="tui-screen__foot">v1.2 · Developed by EyUp.io</p>
+              </div>
             </div>
             <figcaption>
               <span class="tui-card__label">01 · Welcome</span>
@@ -262,43 +280,63 @@
 
           <figure class="tui-card">
             <div class="terminal__bar">
-              <span class="terminal__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="terminal__title">wireguard.sh — review</span>
+              <span class="terminal__label">wireguard.sh — review</span>
+              <span class="terminal__meta">--preview</span>
             </div>
-            <div class="tui-screen-wrap" tabindex="0" role="group" aria-label="Preview of the wireguard.sh review screen">
-              <pre class="tui-screen" aria-hidden="true"><span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   <span class="tui-brand">wireguard.sh</span>                                            <span class="tui-version">v1.2</span>   │
-  │   Guided WireGuard installer                        <span class="tui-dim">by EyUp.io</span>   │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span>
+            <div class="tui-screen-wrap" role="group" aria-label="Preview of the wireguard.sh review screen">
+              <div class="tui-screen" aria-hidden="true">
+                <div class="tui-screen__head">
+                  <span class="tui-screen__brand">wireguard.sh</span>
+                  <span class="tui-screen__version">v1.2</span>
+                  <span class="tui-screen__tagline">Guided WireGuard installer</span>
+                  <span class="tui-screen__by">by EyUp.io</span>
+                </div>
 
-<span class="tui-heading">  Review your setup</span>
-<span class="tui-dim">  Step 5 of 5 · nothing has changed yet.</span>
+                <p class="tui-screen__title">Review your setup</p>
+                <p class="tui-screen__sub">Step 5 of 5 · nothing has changed yet</p>
 
-<span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   System           Ubuntu 24.04 · x86_64 · KVM                   │
-  │   Endpoint         203.0.113.10:51820/udp                        │
-  │   IPv4             203.0.113.10                                  │
-  │   IPv6             2001:db8:7::10                                │
-  │   First client     laptop                                        │
-  │   DNS              Cloudflare                                    │
-  │   Tunnel           WireGuard kernel module                       │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span>
+                <dl class="tui-rows">
+                  <div class="tui-row"><dt>System</dt><dd>Ubuntu 24.04 · x86_64 · KVM</dd></div>
+                  <div class="tui-row"><dt>Endpoint</dt><dd>203.0.113.10:51820/udp</dd></div>
+                  <div class="tui-row"><dt>IPv4</dt><dd>203.0.113.10</dd></div>
+                  <div class="tui-row"><dt>IPv6</dt><dd>2001:db8:7::10</dd></div>
+                  <div class="tui-row"><dt>First client</dt><dd>laptop</dd></div>
+                  <div class="tui-row"><dt>DNS</dt><dd>Cloudflare</dd></div>
+                  <div class="tui-row"><dt>Tunnel</dt><dd>WireGuard kernel module</dd></div>
+                </dl>
 
-  Choosing Install now will install packages, write
-  configuration, and start the WireGuard service. You can
-  still cancel below.
-<span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   Ready to install?                                              │
-<span class="tui-border">  ├──────────────────────────────────────────────────────────────────┤</span>
-<span class="tui-selected">  │   ❯ 1  Install now                                               │</span>
-  │         Install WireGuard and create the first client            │
-  │     2  Back                                                      │
-  │         Return to the previous step                              │
-  │     3  Cancel                                                    │
-  │         Exit without changing anything                           │
-<span class="tui-border">  ├──────────────────────────────────────────────────────────────────┤</span>
-  │   Enter a number · q to quit                                     │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span></pre>
+                <p class="tui-copy">
+                  Choosing Install now will install packages, write configuration, and start the WireGuard
+                  service. You can still cancel below.
+                </p>
+
+                <div class="tui-menu">
+                  <p class="tui-menu__ask">What would you like to do?</p>
+                  <div class="tui-menu__row is-active">
+                    <span class="tui-menu__key">1</span>
+                    <span class="tui-menu__text">
+                      <span class="tui-menu__label">Install now</span>
+                      <span class="tui-menu__hint">Install WireGuard and create the first client</span>
+                    </span>
+                  </div>
+                  <div class="tui-menu__row">
+                    <span class="tui-menu__key">2</span>
+                    <span class="tui-menu__text">
+                      <span class="tui-menu__label">Back</span>
+                      <span class="tui-menu__hint">Return to the previous step</span>
+                    </span>
+                  </div>
+                  <div class="tui-menu__row">
+                    <span class="tui-menu__key">3</span>
+                    <span class="tui-menu__text">
+                      <span class="tui-menu__label">Cancel</span>
+                      <span class="tui-menu__hint">Exit without changing anything</span>
+                    </span>
+                  </div>
+                  <p class="tui-menu__foot">Enter a number · q to quit</p>
+                </div>
+                <p class="tui-screen__foot">v1.2 · Developed by EyUp.io</p>
+              </div>
             </div>
             <figcaption>
               <span class="tui-card__label">02 · Review</span>
@@ -308,52 +346,78 @@
 
           <figure class="tui-card tui-card--wide">
             <div class="terminal__bar">
-              <span class="terminal__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="terminal__title">wireguard.sh — dashboard</span>
+              <span class="terminal__label">wireguard.sh — dashboard</span>
+              <span class="terminal__meta">--preview</span>
             </div>
             <div class="tui-card__body">
-              <div class="tui-screen-wrap" tabindex="0" role="group" aria-label="Preview of the wireguard.sh dashboard screen">
-                <pre class="tui-screen" aria-hidden="true"><span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   <span class="tui-brand">wireguard.sh</span>                                            <span class="tui-version">v1.2</span>   │
-  │   Guided WireGuard installer                        <span class="tui-dim">by EyUp.io</span>   │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span>
+              <div class="tui-screen-wrap" role="group" aria-label="Preview of the wireguard.sh dashboard screen">
+                <div class="tui-screen" aria-hidden="true">
+                  <div class="tui-screen__head">
+                    <span class="tui-screen__brand">wireguard.sh</span>
+                    <span class="tui-screen__version">v1.2</span>
+                    <span class="tui-screen__tagline">Guided WireGuard installer</span>
+                    <span class="tui-screen__by">by EyUp.io</span>
+                  </div>
 
-<span class="tui-heading">  Dashboard</span>
-<span class="tui-dim">  WireGuard is already installed on this server.</span>
+                  <p class="tui-screen__title">Dashboard</p>
+                  <p class="tui-screen__sub">WireGuard is already installed on this server</p>
 
-<span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   Status           <span class="tui-good">active</span>                                        │
-  │   Interface        wg0                                           │
-  │   Endpoint         203.0.113.10:51820/udp                        │
-  │   Clients          3                                             │
-  │   IPv6             enabled                                       │
-  │   Config           /etc/wireguard/wg0.conf                       │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span>
+                  <dl class="tui-rows">
+                    <div class="tui-row"><dt>Status</dt><dd><span class="tui-dot" aria-hidden="true"></span>active</dd></div>
+                    <div class="tui-row"><dt>Interface</dt><dd>wg0</dd></div>
+                    <div class="tui-row"><dt>Endpoint</dt><dd>203.0.113.10:51820/udp</dd></div>
+                    <div class="tui-row"><dt>Clients</dt><dd>3</dd></div>
+                    <div class="tui-row"><dt>IPv6</dt><dd>enabled</dd></div>
+                    <div class="tui-row"><dt>Config</dt><dd>/etc/wireguard/wg0.conf</dd></div>
+                  </dl>
 
-  ● Service active.
+                  <p class="tui-copy tui-copy--status"><span class="tui-dot" aria-hidden="true"></span>Service active</p>
 
-<span class="tui-dim">  v1.2 · Developed by EyUp.io</span>
-<span class="tui-dim">  With thanks to Nyr and the WireGuard project</span>
-<span class="tui-border">  ┌──────────────────────────────────────────────────────────────────┐</span>
-  │   What would you like to do?                                     │
-<span class="tui-border">  ├──────────────────────────────────────────────────────────────────┤</span>
-<span class="tui-selected">  │   ❯ 1  Add a new client                                          │</span>
-  │         Create a config and QR code for another device           │
-  │     2  Remove an existing client                                 │
-  │         Revoke one device without touching the server            │
-  │     3  Remove WireGuard                                          │
-  │         Stop the service and remove the installation             │
-  │     4  About &amp; credits                                           │
-  │         The people behind WireGuard and this installer           │
-  │     5  Exit                                                      │
-  │         Close the installer                                      │
-<span class="tui-border">  ├──────────────────────────────────────────────────────────────────┤</span>
-  │   Enter a number · q to quit                                     │
-<span class="tui-border">  └──────────────────────────────────────────────────────────────────┘</span></pre>
+                  <div class="tui-menu">
+                    <p class="tui-menu__ask">What would you like to do?</p>
+                    <div class="tui-menu__row is-active">
+                      <span class="tui-menu__key">1</span>
+                      <span class="tui-menu__text">
+                        <span class="tui-menu__label">Add a new client</span>
+                        <span class="tui-menu__hint">Create a config and QR code for another device</span>
+                      </span>
+                    </div>
+                    <div class="tui-menu__row">
+                      <span class="tui-menu__key">2</span>
+                      <span class="tui-menu__text">
+                        <span class="tui-menu__label">Remove an existing client</span>
+                        <span class="tui-menu__hint">Revoke one device without touching the server</span>
+                      </span>
+                    </div>
+                    <div class="tui-menu__row">
+                      <span class="tui-menu__key">3</span>
+                      <span class="tui-menu__text">
+                        <span class="tui-menu__label">Remove WireGuard</span>
+                        <span class="tui-menu__hint">Stop the service and remove the installation</span>
+                      </span>
+                    </div>
+                    <div class="tui-menu__row">
+                      <span class="tui-menu__key">4</span>
+                      <span class="tui-menu__text">
+                        <span class="tui-menu__label">About &amp; credits</span>
+                        <span class="tui-menu__hint">The people behind WireGuard and this installer</span>
+                      </span>
+                    </div>
+                    <div class="tui-menu__row">
+                      <span class="tui-menu__key">5</span>
+                      <span class="tui-menu__text">
+                        <span class="tui-menu__label">Exit</span>
+                        <span class="tui-menu__hint">Close the installer</span>
+                      </span>
+                    </div>
+                    <p class="tui-menu__foot">Enter a number · q to quit</p>
+                  </div>
+                  <p class="tui-screen__foot">v1.2 · Developed by EyUp.io</p>
+                </div>
               </div>
               <aside class="tui-aside" aria-label="What the dashboard shows">
                 <p class="tui-aside__kicker">At a glance</p>
-                <h3>Service, endpoint, clients.</h3>
+                <h3>Service, endpoint, clients</h3>
                 <p>Re-running the installer opens the same TUI as a dashboard. No separate tool to learn.</p>
                 <ul>
                   <li><strong>Add a client</strong> without touching existing peers.</li>
@@ -373,8 +437,8 @@
 
       <section class="credits" id="credits" aria-labelledby="credits-title">
         <div class="credits__intro">
-          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>With gratitude</p>
-          <h2 id="credits-title">Standing on the shoulders of giants.</h2>
+          <p class="kicker"><span class="peer" aria-hidden="true"></span>Credits</p>
+          <h2 id="credits-title">Built on other people's work</h2>
           <p>
             <strong>wireguard.sh</strong> is an independent installer developed by
             <a href="https://eyup.io">EyUp.io</a>. We take no credit for WireGuard itself. The protocol,
@@ -402,7 +466,7 @@
           </article>
           <article class="credit-card">
             <h3>EyUp.io</h3>
-            <p>The guided TUI, packaging, and maintenance. Built properly in West Yorkshire, with no telemetry.</p>
+            <p>The guided TUI, packaging, and maintenance. Built in West Yorkshire, with no telemetry.</p>
             <a href="https://eyup.io">eyup.io</a>
           </article>
         </div>
@@ -423,10 +487,7 @@
     <footer class="site-footer">
       <div class="site-footer__meta">
         <p>wireguard.sh · <a data-release-link href="https://github.com/eyupio/wireguard.sh/releases/tag/v1.2"><span data-release-version>v1.2</span></a></p>
-        <p class="site-footer__credit">
-          Developed by
-          <a href="https://eyup.io" target="_blank" rel="noopener noreferrer">EyUp.io</a>
-        </p>
+        <p class="site-footer__credit">Developed by <a href="https://eyup.io" target="_blank" rel="noopener noreferrer">EyUp.io</a></p>
       </div>
       <nav aria-label="Footer">
         <a href="https://www.wireguard.com/">Documentation</a>

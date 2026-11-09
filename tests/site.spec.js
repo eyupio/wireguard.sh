@@ -141,7 +141,7 @@ test('the TUI previews and dashboard explanation are present', async ({ page }) 
   await expect(page.locator('.tui-card').nth(0)).toContainText('Welcome');
   await expect(page.locator('.tui-card').nth(1)).toContainText('Review your setup');
   await expect(page.locator('.tui-card').nth(2)).toContainText('Dashboard');
-  await expect(page.locator('.tui-aside')).toContainText('Service, endpoint, clients.');
+  await expect(page.locator('.tui-aside')).toContainText('Service, endpoint, clients');
   await expect(page.locator('.tui-screen-wrap').first()).toHaveAttribute('role', 'group');
   await expect(page.locator('.credits')).toContainText('not affiliated with');
 });
